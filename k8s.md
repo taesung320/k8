@@ -77,7 +77,7 @@ graph TD
 ```
 
 * **Control Plane (HA 구성):** 클러스터의 '두뇌' 역할을 하는 마스터 노드를 3대 이상으로 구성하여, 일부 마스터 노드에 장애가 발생하더라도 API 서버와 etcd가 중단 없이 클러스터 전체를 안정적으로 관리합니다.
-* **Data Plane:** 실제 `s1em` 애플리케이션과 Elasticsearch 등 워크로드가 실행되는 공간입니다. 초기 3대의 워커 노드로 시작하며, 서비스 부하에 따라 유연하게 확장할 수 있습니다.
+* **Data Plane:** 실제 `siem` 애플리케이션과 Elasticsearch 등 워크로드가 실행되는 공간입니다. 초기 3대의 워커 노드로 시작하며, 서비스 부하에 따라 유연하게 확장할 수 있습니다.
 * **Storage:** 데이터의 영속성을 보장하기 위한 외부 스토리지 계층입니다. I/O 성능이 중요한 Elasticsearch 데이터는 **SANS**를 통해, 기타 설정 파일이나 로그 데이터 등은 **NFS**를 통해 Persistent Volume으로 연동하는 하이브리드 전략을 제안합니다.
 * **Network (Ingress):** 외부 트래픽이 K8s 클러스터 내부 서비스로 진입하는 관문입니다. **Ingress Controller**를 통해 URL 기반 라우팅, SSL/TLS 처리 등을 수행하며 외부 로드밸런서와 연동됩니다.
 
@@ -94,7 +94,7 @@ graph TD
 | **Storage**          | Elasticsearch 데이터용 | **SANS (Block Storage)**               |  -  | 빠른 I/O 속도 보장, ES 클러스터 성능 극대화 |
 | **(Option) Network** | L4 Ingress/L7 Routing | 4 vCPU, 8GB RAM                        |  2  | 트래픽 관문 역할, 안정성을 위한 이중화(HA)  |
 
-> **고려사항:** 개발 환경에서 64GB RAM을 사용 중인 점을 감안할 때, 초기 운영 환경의 워커 노드 RAM은 32GB로 시작하되, **Prometheus/Grafana** 기반의 면밀한 모니터링을 통해 **리소스 사용 추이를 분석하고 증설(Scale-up) 시점을 예측**하는 것이 중요합니다.
+> **고려사항:** 초기 운영 환경의 워커 노드 RAM은 32GB로 시작하되, **Prometheus/Grafana** 기반의 면밀한 모니터링을 통해 **리소스 사용 추이를 분석하고 증설(Scale-up) 시점을 예측**하는 것이 중요합니다.
 
 ---
 
