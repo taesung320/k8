@@ -39,7 +39,7 @@ graph TD
           Worker3[Worker Node 3<br/>s1em App Pod<br/>ES Pod]
       end
 
-      subgraph ControlPlane["Control Plane(8core6G)"]
+      subgraph ControlPlane["Control Plane(8core32G)"]
           direction LR
           Master1[Master Node 1<br/>API Server, etcd]
           Master2[Master Node 2<br/>API Server, etcd]
@@ -111,15 +111,3 @@ graph TD
 | **5주차** | **마이그레이션 준비 #1 (single)** | • 기존 `docker-compose-single.yaml`을 K8s Manifest 변환• 개발팀 대상 K8s 기본 개념 및 Manifest 작성법 교육/지원 |
 | **6주차** | **마이그레이션 준비 #2 (multi)** | • 기존 `docker-compose-multi.yaml`의 K8s Manifest 변환 및 배포 테스트• 서비스 간 의존성, 환경변수 설정 등 복잡한 배포 시나리오 지원 |
 | **7-8주차** | **실 서비스 배포 및 안정화** | • **실제 `s1em` 서비스 배포** 및 운영 안정성 검증• **배포/운영 표준 절차서** 및 **장애 대응 매뉴얼** 문서화• 및 운영 교육 |
-
-### **6. 추후 운영 고도화(4주)**
-
-- etcd 백업 스케줄링
-- kustumize 사용하여 base(template) manifest 기반 다양한 app phase 구성
-  - base(template) 작성 후 overlay manifest 로 app phase 추가 (stage, product .. )
-  - one command 로 배포
-- argocd 구축 및 배포 방법 교육
-  - kustumize 활용 및 배포 기록, 롤백, ui based deploy
-  - 배포 모니터링 (blue/green)
-- air-flow 구축
-  - cron, pipeline 관리 (ex. etcd 백업, storage backup .. )
